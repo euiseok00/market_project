@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게임 마켓 - 사용자 메인</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 상단 헤더 */
+    header {
+      background-color: #007BFF;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+    }
+
+    .header-left h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .header-right button {
+      background-color: white;
+      color: #007BFF;
+      border: none;
+      padding: 10px 16px;
+      margin-left: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .header-right button:hover {
+      background-color: #e6e6e6;
+    }
+
+    /* 검색 및 정렬 영역 */
+    .search-container {
+      text-align: center;
+      margin: 30px 0 20px 0;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .search-container input[type="text"] {
+      width: 50%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .search-container button {
+      padding: 12px 18px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: background-color 0.2s;
+    }
+
+    .search-container button:hover {
+      background-color: #45a049;
+    }
+
+    .sort-btn {
+      background-color: #6c757d;
+    }
+
+    .sort-btn:hover {
+      background-color: #555;
+    }
+
+    /* 게임 목록 */
+    .game-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 20px 40px;
+    }
+
+    .game-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .game-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .game-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .game-info {
+      padding: 15px;
+      text-align: left;
+      border-top: 1px solid #eee;
+    }
+
+    .game-info h3 {
+      margin: 5px 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .game-info p {
+      margin: 3px 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #2e8b57;
+    }
+
+    /* 버튼 영역 */
+    .button-group {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 12px;
+      border-top: 1px solid #eee;
+      background-color: #fafafa;
+      gap: 8px;
+    }
+
+    .button-group button {
+      flex: 1;
+      padding: 10px 0;
+      font-size: 13px;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+
+    .wishlist-btn { background-color: #007BFF; }
+    .buy-btn { background-color: #4CAF50; }
+    .detail-btn { background-color: #6c757d; }
+
+    .wishlist-btn:hover { background-color: #0056b3; }
+    .buy-btn:hover { background-color: #45a049; }
+    .detail-btn:hover { background-color: #555; }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- 상단 헤더 -->
+  <header>
+    <div class="header-left">
+      <h1>🎮 게임 마켓</h1>
+    </div>
+    <div class="header-right">
+      <button>
+        <a href="mypage.html">마이페이지</a>
+      </button>
+      <button>
+        <a href="../both/first.html">로그아웃</a>
+      </button>
+    </div>
+  </header>
+
+  <!-- 검색창 + 정렬 -->
+  <div class="search-container">
+    <input type="text" placeholder="게임 이름 또는 장르를 검색하세요">
+    <button>검색</button>
+    <button class="sort-btn">정렬순 ▼</button>
+  </div>
+
+  <!-- 게임 목록 -->
+  <div class="game-list">
+    <!-- 예시 게임 카드 1 -->
+    <div class="game-card">
+      <img src="https://cdn.akamai.steamstatic.com/steam/apps/1091500/header.jpg" alt="사이버펑크2077">
+      <div class="game-info">
+        <h3>사이버펑크 2077</h3>
+        <p>장르: RPG</p>
+        <p class="price">₩ 59,800</p>
+      </div>
+      <div class="button-group">
+        <button class="wishlist-btn">♡ 관심목록
+            
+        </button>
+        <button class="buy-btn">💰 구매하기
+
+        </button>
+        <button class="detail-btn">🔍 상세정보
+            
+        </button>
+      </div>
+    </div>
+
+    <!-- 예시 게임 카드 2 -->
+    <div class="game-card">
+      <img src="https://cdn.akamai.steamstatic.com/steam/apps/1086940/header.jpg" alt="발더스게이트3">
+      <div class="game-info">
+        <h3>발더스 게이트 3</h3>
+        <p>장르: RPG</p>
+        <p class="price">₩ 65,000</p>
+      </div>
+      <div class="button-group">
+        <button class="wishlist-btn">♡ 관심목록</button>
+        <button class="buy-btn">💰 구매하기</button>
+        <button class="detail-btn">🔍 상세정보</button>
+      </div>
+    </div>
+
+    <!-- 예시 게임 카드 3 -->
+    <div class="game-card">
+      <img src="https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg" alt="엘든링">
+      <div class="game-info">
+        <h3>엘든링</h3>
+        <p>장르: 액션 RPG</p>
+        <p class="price">₩ 64,800</p>
+      </div>
+      <div class="button-group">
+        <button class="wishlist-btn">♡ 관심목록</button>
+        <button class="buy-btn">💰 구매하기</button>
+        <button class="detail-btn">
+            <a href="../both/game_detail.html">🔍 상세정보</a>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

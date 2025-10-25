@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게임 마켓 - 보유목록</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      background: #fff;
+      margin-top: 50px;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      text-align: center;
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      font-size: 15px;
+    }
+    th {
+      background-color: #f8f9fa;
+      color: #333;
+    }
+    img {
+      width: 120px;
+      border-radius: 6px;
+    }
+    .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 25px;
+    }
+    .back-btn a {
+      text-decoration: none;
+      color: #007BFF;
+      font-weight: bold;
+    }
+    .back-btn a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎮 보유목록</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>이미지</th>
+          <th>게임 이름</th>
+          <th>장르</th>
+          <th>구매일</th>
+          <th>가격</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><img src="https://cdn.akamai.steamstatic.com/steam/apps/1086940/header.jpg"></td>
+          <td>발더스 게이트 3</td>
+          <td>RPG</td>
+          <td>2025-02-01</td>
+          <td>₩65,000</td>
+        </tr>
+        <tr>
+          <td><img src="https://cdn.akamai.steamstatic.com/steam/apps/1091500/header.jpg"></td>
+          <td>사이버펑크 2077</td>
+          <td>RPG</td>
+          <td>2025-01-15</td>
+          <td>₩59,800</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="back-btn">
+      <a href="mypage.html">← 마이페이지로 돌아가기</a>
+    </div>
+  </div>
+</body>
+</html>

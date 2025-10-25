@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게임 마켓 - 게임 상세 정보</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      background: #fff;
+      margin-top: 50px;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+      font-size: 28px;
+    }
+
+    .game-image {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .game-image img {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .info-section {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+
+    .info-section p {
+      margin: 10px 0;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .info-section strong {
+      color: #007BFF;
+      display: inline-block;
+      width: 90px;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #2e8b57;
+    }
+
+    .description {
+      margin-top: 25px;
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+    }
+
+    .description h2 {
+      color: #007BFF;
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .description p {
+      color: #555;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .review-section {
+      border-top: 1px solid #ddd;
+      padding-top: 25px;
+      margin-top: 40px;
+    }
+
+    .review-section h2 {
+      font-size: 20px;
+      color: #007BFF;
+      margin-bottom: 20px;
+    }
+
+    .criteria {
+      margin-bottom: 15px;
+    }
+
+    .criteria label {
+      display: inline-block;
+      width: 180px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .stars {
+      color: #FFD700;
+      font-size: 20px;
+      letter-spacing: 4px;
+    }
+
+    /* 버튼 공통 스타일 */
+    .button-area {
+      text-align: right;
+      margin-top: 25px;
+    }
+
+    .edit-btn {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .edit-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .back-btn a {
+      text-decoration: none;
+      color: #007BFF;
+      font-weight: bold;
+    }
+
+    .back-btn a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>게임 상세 정보</h1>
+
+    <div class="game-image">
+      <img src="https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg" alt="엘든 링">
+    </div>
+
+    <div class="info-section">
+      <p><strong>제목:</strong> 엘든 링 (Elden Ring)</p>
+      <p><strong>출시일:</strong> 2022-02-25</p>
+      <p><strong>제작사:</strong> FromSoftware</p>
+      <p class="price"><strong>가격:</strong> ₩64,800</p>
+    </div>
+
+    <div class="description">
+      <h2>게임 설명</h2>
+      <p>광대한 오픈월드를 탐험하며 다양한 보스와 전투를 벌이는 액션 RPG.
+      자유로운 성장과 전투 스타일을 즐길 수 있습니다.</p>
+    </div>
+
+    <div class="review-section">
+      <h2>게임 평가하기</h2>
+      <div class="criteria"><label>그래픽</label><span class="stars">★★★★★</span></div>
+      <div class="criteria"><label>완성도</label><span class="stars">★★★★★</span></div>
+      <div class="criteria"><label>재미 / 몰입감</label><span class="stars">★★★★★</span></div>
+      <div class="criteria"><label>리플레이 가능성</label><span class="stars">★★★★★</span></div>
+      <div class="criteria"><label>가격 만족도</label><span class="stars">★★★★★</span></div>
+    </div>
+
+    
+
+    <div class="back-btn">
+      <a href="../users/game_list_user.html" class="link-btn">← 목록으로 돌아가기</a>
+    </div>
+    <!-- 버튼 영역 (JS로 분기 표시) -->
+    <!-- <div class="button-area" id="admin-buttons" style="display:none;">
+      <button class="edit-btn">✏️ 게임 정보 수정</button>
+    </div>
+    <div class="back-btn">
+      <a id="back-link" href="#">← 목록으로 돌아가기</a>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const role = params.get("role"); // role=user or admin
+    const backLink = document.getElementById("back-link");
+    const adminButtons = document.getElementById("admin-buttons");
+
+    if (role === "admin") {
+      backLink.href = "../admin/game_list_admin.html";
+      adminButtons.style.display = "block";
+    } else {
+      backLink.href = "../users/game_list_user.html";
+      adminButtons.style.display = "none";
+    }
+  </script> -->
+
+</body>
+</html>
