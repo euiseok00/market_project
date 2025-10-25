@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게임 마켓 - 관리자 페이지</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* 상단 헤더 */
+    header {
+      background-color: #dc3545;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+    }
+
+    .header-left h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .header-right button {
+      background-color: white;
+      color: #dc3545;
+      border: none;
+      padding: 10px 16px;
+      margin-left: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .header-right button:hover {
+      background-color: #f2f2f2;
+    }
+
+    /* 메인 안내 영역 */
+    .intro {
+      text-align: center;
+      margin: 40px 0 10px 0;
+      color: #333;
+    }
+
+    .intro h2 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .intro p {
+      font-size: 15px;
+      color: #555;
+    }
+
+    /* 대시보드 영역 */
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
+      padding: 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 40px 30px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .card h2 {
+      color: #dc3545;
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: #555;
+      font-size: 15px;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .card a {
+      display: inline-block;
+      background-color: #dc3545;
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+
+    .card a:hover {
+      background-color: #b02a37;
+    }
+
+    /* 메인으로 돌아가기 버튼 */
+    .back-section {
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 60px;
+    }
+
+    .back-btn {
+      display: inline-block;
+      background-color: #6c757d;
+      color: white;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.2s, transform 0.15s;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+
+    .back-btn:hover {
+      background-color: #555;
+      transform: translateY(-2px);
+    }
+
+    /* 푸터 */
+    footer {
+      text-align: center;
+      color: #999;
+      padding: 20px;
+      font-size: 13px;
+      border-top: 1px solid #ddd;
+      margin-top: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 상단 헤더 -->
+  <header>
+    <div class="header-left">
+      <h1>🛠️ 관리자 페이지</h1>
+    </div>
+    <div class="header-right">
+      <button>관리자 홈</button>
+      <button>
+        <a href="../both/first.html" style="color:#dc3545; text-decoration:none;">로그아웃</a>
+      </button>
+    </div>
+  </header>
+
+  <!-- 안내 섹션 -->
+  <div class="intro">
+    <h2>관리자 대시보드</h2>
+    <p>게임 마켓의 원활한 운영을 위한 관리 도구입니다.<br>
+       아래의 카테고리에서 유저 및 리뷰 데이터를 확인하고 조정할 수 있습니다.</p>
+  </div>
+
+  <!-- 주요 카테고리 -->
+  <div class="dashboard">
+    <!-- 유저 관리 카드 -->
+    <div class="card">
+      <h2>👥 유저 관리</h2>
+      <p>회원 정보 조회, 권한 변경, 활동 제재 등 유저 관련 기능을 관리합니다.</p>
+      <a href="admin_users.html">유저 관리로 이동</a>
+    </div>
+
+    <!-- 리뷰 관리 카드 -->
+    <div class="card">
+      <h2>📝 리뷰 관리</h2>
+      <p>사용자 리뷰를 검토하고, 신고된 리뷰를 처리하거나 삭제할 수 있습니다.</p>
+      <a href="admin_reviews.html">리뷰 관리로 이동</a>
+    </div>
+  </div>
+
+  <!-- 메인으로 돌아가기 버튼 -->
+  <div class="back-section">
+    <a href="game_list_admin.html" class="back-btn">← 메인으로 돌아가기</a>
+  </div>
+
+  <!-- 푸터 -->
+  <footer>
+    © 2025 Game Market Admin Panel
+  </footer>
+
+</body>
+</html>
+

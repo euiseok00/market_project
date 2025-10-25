@@ -12,6 +12,7 @@
       margin: 0;
       padding: 0;
     }
+
     .container {
       width: 90%;
       max-width: 900px;
@@ -21,43 +22,105 @@
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
+
     h1 {
       text-align: center;
       color: #333;
       margin-bottom: 30px;
     }
+
     .review {
-      border-bottom: 1px solid #ddd;
-      padding: 20px 0;
+      background-color: #fafafa;
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: relative;
     }
-    .review:last-child {
-      border-bottom: none;
+
+    /* 🚨 신고 배너 */
+    .reported-banner {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      background-color: #dc3545;
+      color: white;
+      font-weight: bold;
+      font-size: 13px;
+      padding: 5px 10px;
+      border-top-left-radius: 10px;
+      border-bottom-right-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
+
     .review h2 {
-      margin: 0;
+      margin-top: 0;
       color: #007BFF;
-      font-size: 18px;
+      font-size: 20px;
+      margin-bottom: 10px;
     }
-    .review p {
-      margin: 6px 0;
-      color: #555;
+
+    .criteria-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px 40px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    .criteria {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 8px 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .criteria label {
+      font-weight: bold;
+      color: #333;
       font-size: 14px;
     }
-    .rating {
+
+    .stars {
       color: #FFD700;
-      font-weight: bold;
-      font-size: 16px;
+      font-size: 18px;
+      letter-spacing: 2px;
     }
+
+    .review-text {
+      color: #555;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .review small {
+      color: #777;
+      font-size: 13px;
+    }
+
+    /* 신고된 리뷰일 때 흐림 효과 */
+    .review.reported {
+      border: 2px solid #dc3545;
+      background-color: #fff5f5;
+    }
+
     .back-btn {
       display: block;
       text-align: center;
-      margin-top: 30px;
+      margin-top: 40px;
     }
+
     .back-btn a {
       text-decoration: none;
       color: #007BFF;
       font-weight: bold;
+      font-size: 15px;
     }
+
     .back-btn a:hover {
       text-decoration: underline;
     }
@@ -65,24 +128,56 @@
 </head>
 <body>
   <div class="container">
-    <h1>✏️ 리뷰 관리</h1>
+    <h1>✏️ 내가 쓴 리뷰</h1>
 
+    <!-- 🚨 정상 리뷰 -->
     <div class="review">
       <h2>엘든 링</h2>
-      <p class="rating">★★★★★</p>
-      <p>정말 멋진 세계관과 전투 시스템, 다만 난이도가 높아요.</p>
+
+      <div class="criteria-grid">
+        <div class="criteria"><label>그래픽</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>완성도</label><span class="stars">★★★★☆</span></div>
+        <div class="criteria"><label>재미 / 몰입감</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>리플레이 가능성</label><span class="stars">★★★★☆</span></div>
+        <div class="criteria"><label>가격 만족도</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>첫인상</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>접근성</label><span class="stars">★★★☆☆</span></div>
+        <div class="criteria"><label>경쟁력</label><span class="stars">★★★★☆</span></div>
+      </div>
+
+      <p class="review-text">
+        정말 멋진 세계관과 전투 시스템, 다만 난이도가 높아요.  
+        보스전이 인상적이고, 자유도 높은 전투 방식이 마음에 듭니다.
+      </p>
       <p><small>작성일: 2025-02-03</small></p>
     </div>
 
-    <div class="review">
+    <!-- 🚨 신고된 리뷰 예시 -->
+    <div class="review reported">
+      <div class="reported-banner">🚨 이 리뷰는 신고가 접수되어 비공개 처리되었습니다.</div>
+
       <h2>발더스 게이트 3</h2>
-      <p class="rating">★★★★☆</p>
-      <p>스토리가 훌륭하지만 인터페이스가 조금 복잡합니다.</p>
+
+      <div class="criteria-grid">
+        <div class="criteria"><label>그래픽</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>완성도</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>재미 / 몰입감</label><span class="stars">★★★★☆</span></div>
+        <div class="criteria"><label>리플레이 가능성</label><span class="stars">★★★★☆</span></div>
+        <div class="criteria"><label>가격 만족도</label><span class="stars">★★★★☆</span></div>
+        <div class="criteria"><label>첫인상</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>접근성</label><span class="stars">★★★☆☆</span></div>
+        <div class="criteria"><label>경쟁력</label><span class="stars">★★★★★</span></div>
+      </div>
+
+      <p class="review-text">
+        스토리는 훌륭하지만 인터페이스가 조금 복잡합니다.  
+        일부 버그가 발생했지만 전반적인 완성도는 높습니다.
+      </p>
       <p><small>작성일: 2025-01-29</small></p>
     </div>
 
     <div class="back-btn">
-      <a href="mypage.html">← 마이페이지로 돌아가기</a>
+      <a href="my_page.html">← 마이페이지로 돌아가기</a>
     </div>
   </div>
 </body>

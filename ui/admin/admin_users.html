@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게임 마켓 - 유저 관리</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 상단 헤더 */
+    header {
+      background-color: #dc3545;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+    }
+
+    .header-left h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .header-right button {
+      background-color: white;
+      color: #dc3545;
+      border: none;
+      padding: 10px 16px;
+      margin-left: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .header-right button:hover {
+      background-color: #f2f2f2;
+    }
+
+    /* 검색 영역 */
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 25px 0 15px 0;
+    }
+
+    .search-bar input {
+      width: 50%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .search-bar button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .search-bar button:hover {
+      background-color: #0056b3;
+    }
+
+    /* 유저 테이블 */
+    table {
+      width: 90%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      text-align: center;
+      padding: 14px 10px;
+      border-bottom: 1px solid #ddd;
+      font-size: 15px;
+    }
+
+    th {
+      background-color: #dc3545;
+      color: white;
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    /* 하단 돌아가기 버튼 */
+    .back-section {
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 60px;
+    }
+
+    .back-btn {
+      display: inline-block;
+      background-color: #6c757d;
+      color: white;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.2s, transform 0.15s;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+
+    .back-btn:hover {
+      background-color: #555;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 헤더 -->
+  <header>
+    <div class="header-left">
+      <h1>👥 유저 관리</h1>
+    </div>
+    <div class="header-right">
+      <button><a href="admin_dashboard.html" style="color:#dc3545; text-decoration:none;">관리자 홈</a></button>
+      <button><a href="../both/first.html" style="color:#dc3545; text-decoration:none;">로그아웃</a></button>
+    </div>
+  </header>
+
+  <!-- 검색 -->
+  <div class="search-bar">
+    <input type="text" placeholder="아이디 또는 이름으로 검색">
+    <button>검색</button>
+  </div>
+
+  <!-- 유저 목록 테이블 -->
+  <table>
+    <thead>
+      <tr>
+        <th>회원 ID</th>
+        <th>이름</th>
+        <th>가입일</th>
+        <th>신고 누적 횟수</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        <td>user098</td>
+        <td>이영희</td>
+        <td>2025-01-14</td>
+        <td>5회 🚨</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <!-- 하단 버튼 -->
+  <div class="back-section">
+    <a href="admin_page.html" class="back-btn">← 관리자 홈으로 돌아가기</a>
+  </div>
+
+</body>
+</html>

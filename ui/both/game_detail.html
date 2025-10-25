@@ -84,25 +84,60 @@
       line-height: 1.6;
     }
 
+    /* 리뷰 섹션 */
     .review-section {
       border-top: 1px solid #ddd;
       padding-top: 25px;
       margin-top: 40px;
+      background-color: #fafafa;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
 
     .review-section h2 {
       font-size: 20px;
       color: #007BFF;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .review-card {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    /* 작성자 + 작성일 */
+    .review-meta {
+      font-size: 13px;
+      color: #777;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .criteria-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px 40px;
+      margin-top: 15px;
       margin-bottom: 20px;
     }
 
     .criteria {
-      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 10px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     }
 
     .criteria label {
-      display: inline-block;
-      width: 180px;
       font-weight: bold;
       color: #333;
     }
@@ -110,44 +145,58 @@
     .stars {
       color: #FFD700;
       font-size: 20px;
-      letter-spacing: 4px;
+      letter-spacing: 3px;
     }
 
-    /* 버튼 공통 스타일 */
-    .button-area {
-      text-align: right;
-      margin-top: 25px;
+    .review-text {
+      font-size: 15px;
+      color: #444;
+      line-height: 1.6;
+      margin-top: 10px;
+      margin-bottom: 25px;
+      white-space: pre-line;
     }
 
-    .edit-btn {
-      background-color: #007BFF;
+    .report-btn {
+      display: block;
+      margin-left: auto;
+      background-color: #dc3545;
       color: white;
       border: none;
       border-radius: 8px;
       padding: 10px 16px;
+      font-size: 14px;
       cursor: pointer;
       font-weight: bold;
-      font-size: 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: background-color 0.2s, transform 0.15s;
     }
 
-    .edit-btn:hover {
-      background-color: #0056b3;
+    .report-btn:hover {
+      background-color: #b02a37;
+      transform: translateY(-2px);
     }
 
     .back-btn {
-      display: block;
       text-align: center;
       margin-top: 40px;
     }
 
-    .back-btn a {
-      text-decoration: none;
-      color: #007BFF;
+    .link-btn {
+      display: inline-block;
+      background-color: #007BFF;
+      color: white;
       font-weight: bold;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      transition: background-color 0.2s, transform 0.15s;
     }
 
-    .back-btn a:hover {
-      text-decoration: underline;
+    .link-btn:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
     }
   </style>
 </head>
@@ -173,43 +222,59 @@
       자유로운 성장과 전투 스타일을 즐길 수 있습니다.</p>
     </div>
 
+    <!-- 사용자 리뷰 -->
     <div class="review-section">
-      <h2>게임 평가하기</h2>
-      <div class="criteria"><label>그래픽</label><span class="stars">★★★★★</span></div>
-      <div class="criteria"><label>완성도</label><span class="stars">★★★★★</span></div>
-      <div class="criteria"><label>재미 / 몰입감</label><span class="stars">★★★★★</span></div>
-      <div class="criteria"><label>리플레이 가능성</label><span class="stars">★★★★★</span></div>
-      <div class="criteria"><label>가격 만족도</label><span class="stars">★★★★★</span></div>
-    </div>
+      <h2>⭐ 사용자 리뷰</h2>
 
-    
+      <div class="review-card">
+        <div class="review-meta">작성자: gamer01 | 작성일: 2025-02-03</div>
+
+        <div class="criteria-grid">
+          <div class="criteria"><label>그래픽</label><span class="stars">★★★★★</span></div>
+          <div class="criteria"><label>완성도</label><span class="stars">★★★★☆</span></div>
+          <div class="criteria"><label>재미 / 몰입감</label><span class="stars">★★★★★</span></div>
+          <div class="criteria"><label>리플레이 가능성</label><span class="stars">★★★★☆</span></div>
+          <div class="criteria"><label>가격 만족도</label><span class="stars">★★★★★</span></div>
+          <div class="criteria"><label>첫인상</label><span class="stars">★★★★★</span></div>
+          <div class="criteria"><label>접근성</label><span class="stars">★★★☆☆</span></div>
+          <div class="criteria"><label>경쟁력</label><span class="stars">★★★★☆</span></div>
+        </div>
+
+        <div class="review-text">
+          전투 시스템이 정말 훌륭하고 보스전이 짜릿함.  
+          다만 초반 구간의 난이도가 높아 초심자에겐 어려울 수 있음.
+        </div>
+
+        <button class="report-btn">🚨 리뷰 신고하기</button>
+      </div>
+
+      <div class="review-card">
+        <div class="review-meta">작성자: soulmaster | 작성일: 2025-01-29</div>
+
+        <div class="criteria-grid">
+          <div class="criteria"><label>그래픽</label><span class="stars">★★★★★</span></div>
+          <div class="criteria"><label>완성도</label><span class="stars">★★★★★</span></div>
+          <div class="criteria"><label>재미 / 몰입감</label><span class="stars">★★★★★</span></div>
+          <div class="criteria"><label>리플레이 가능성</label><span class="stars">★★★★★</span></div>
+          <div class="criteria"><label>가격 만족도</label><span class="stars">★★★★★</span></div>
+          <div class="criteria"><label>첫인상</label><span class="stars">★★★★★</span></div>
+          <div class="criteria"><label>접근성</label><span class="stars">★★★☆☆</span></div>
+          <div class="criteria"><label>경쟁력</label><span class="stars">★★★★★</span></div>
+        </div>
+
+        <div class="review-text">
+          이 정도 완성도의 액션 RPG는 최근 보기 드물다.  
+          세계관 구성과 보스 디자인 모두 훌륭함.
+        </div>
+
+        <button class="report-btn">🚨 리뷰 신고하기</button>
+      </div>
+    </div>
 
     <div class="back-btn">
       <a href="../users/game_list_user.html" class="link-btn">← 목록으로 돌아가기</a>
     </div>
-    <!-- 버튼 영역 (JS로 분기 표시) -->
-    <!-- <div class="button-area" id="admin-buttons" style="display:none;">
-      <button class="edit-btn">✏️ 게임 정보 수정</button>
-    </div>
-    <div class="back-btn">
-      <a id="back-link" href="#">← 목록으로 돌아가기</a>
-    </div>
   </div>
-
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const role = params.get("role"); // role=user or admin
-    const backLink = document.getElementById("back-link");
-    const adminButtons = document.getElementById("admin-buttons");
-
-    if (role === "admin") {
-      backLink.href = "../admin/game_list_admin.html";
-      adminButtons.style.display = "block";
-    } else {
-      backLink.href = "../users/game_list_user.html";
-      adminButtons.style.display = "none";
-    }
-  </script> -->
 
 </body>
 </html>
