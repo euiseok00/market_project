@@ -42,116 +42,172 @@
       background-color: #f2f2f2;
     }
 
-    /* 검색 / 필터 영역 */
-    .search-bar {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      padding: 25px 0 15px 0;
+    /* 게임 목록 */
+    .game-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 40px;
     }
 
-    .search-bar input {
-      width: 50%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 15px;
-      outline: none;
-    }
-
-    .search-bar button {
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-
-    .search-bar button:hover {
-      background-color: #0056b3;
-    }
-
-    /* 리뷰 테이블 */
-    table {
-      width: 90%;
-      margin: 0 auto;
-      border-collapse: collapse;
-      background-color: white;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      border-radius: 10px;
+    .game-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s;
     }
 
-    th, td {
+    .game-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .game-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .game-info {
+      padding: 15px;
       text-align: center;
-      padding: 14px 10px;
-      border-bottom: 1px solid #ddd;
-      font-size: 15px;
     }
 
-    th {
-      background-color: #dc3545;
-      color: white;
+    .game-info h3 {
+      margin: 5px 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .game-info p {
+      margin: 3px 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    /* 리뷰 목록 영역 */
+    .review-section {
+      display: none;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin: 30px 40px;
+      padding: 30px;
+    }
+
+    .review-section.active {
+      display: block;
+    }
+
+    .review-section h2 {
+      color: #dc3545;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .review-card {
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      position: relative;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .review-meta {
+      font-size: 13px;
+      color: #555;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .review-text {
+      font-size: 15px;
+      color: #444;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      white-space: pre-line;
+    }
+
+    .criteria-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px 30px;
+      margin-bottom: 15px;
+    }
+
+    .criteria label {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .stars {
+      color: #FFD700;
+      font-size: 18px;
+    }
+
+    /* 상태 표시 */
+    .status {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 13px;
       font-weight: bold;
     }
 
-    tr:hover {
-      background-color: #f9f9f9;
+    .status.reported {
+      color: #dc3545;
     }
 
-    /* 버튼 스타일 */
-    .btn {
+    .status.normal {
+      color: #28a745;
+    }
+
+    /* 버튼 */
+    .btn-toggle {
+      display: inline-block;
+      background-color: #6c757d;
+      color: white;
       border: none;
-      border-radius: 6px;
-      padding: 7px 12px;
+      border-radius: 8px;
+      padding: 8px 14px;
       font-size: 13px;
       cursor: pointer;
       font-weight: bold;
-      color: white;
-      transition: opacity 0.2s;
+      transition: background-color 0.2s, transform 0.15s;
     }
 
-    .btn-hide { background-color: #dc3545; }
-    .btn-show { background-color: #28a745; }
+    .btn-toggle:hover {
+      background-color: #555;
+      transform: translateY(-2px);
+    }
 
-    .btn:hover { opacity: 0.85; }
-
-    /* 상태 표시 */
-    .status-public { color: #28a745; font-weight: bold; }
-    .status-hidden { color: #dc3545; font-weight: bold; }
-
-    /* 하단 돌아가기 버튼 */
+    /* 뒤로가기 */
     .back-section {
       text-align: center;
-      margin-top: 40px;
-      margin-bottom: 60px;
+      margin: 40px 0 60px 0;
     }
 
     .back-btn {
-      display: inline-block;
       background-color: #6c757d;
       color: white;
       text-decoration: none;
       padding: 12px 24px;
       border-radius: 8px;
       font-weight: bold;
-      transition: background-color 0.2s, transform 0.15s;
       box-shadow: 0 3px 8px rgba(0,0,0,0.15);
     }
 
     .back-btn:hover {
       background-color: #555;
-      transform: translateY(-2px);
     }
   </style>
 </head>
 
 <body>
 
-  <!-- 헤더 -->
+  <!-- 상단 헤더 -->
   <header>
     <div class="header-left">
       <h1>📝 리뷰 관리</h1>
@@ -162,59 +218,130 @@
     </div>
   </header>
 
-  <!-- 검색 / 필터 -->
-  <div class="search-bar">
-    <input type="text" placeholder="회원 ID 또는 게임명으로 검색">
-    <button>검색</button>
-    <button style="background-color:#6c757d;">신고된 리뷰만 보기</button>
+  <!-- 게임 목록 -->
+  <div class="game-list">
+    <div class="game-card" onclick="showReviews('eldenring')">
+      <img src="https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg" alt="엘든 링">
+      <div class="game-info">
+        <h3>엘든 링</h3>
+        <p>장르: 액션 RPG</p>
+      </div>
+    </div>
+
+    <div class="game-card" onclick="showReviews('cyberpunk')">
+      <img src="https://cdn.akamai.steamstatic.com/steam/apps/1091500/header.jpg" alt="사이버펑크 2077">
+      <div class="game-info">
+        <h3>사이버펑크 2077</h3>
+        <p>장르: RPG</p>
+      </div>
+    </div>
+
+    <div class="game-card" onclick="showReviews('baldurs')">
+      <img src="https://cdn.akamai.steamstatic.com/steam/apps/1086940/header.jpg" alt="발더스 게이트 3">
+      <div class="game-info">
+        <h3>발더스 게이트 3</h3>
+        <p>장르: RPG</p>
+      </div>
+    </div>
   </div>
 
-  <!-- 리뷰 목록 -->
-  <table>
-    <thead>
-      <tr>
-        <th>회원 ID</th>
-        <th>게임명</th>
-        <th>리뷰 내용 (요약)</th>
-        <th>신고 누적 횟수</th>
-        <th>상태</th>
-        <th>비공개 설정</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>user001</td>
-        <td>엘든 링</td>
-        <td>“전투가 정말 짜릿합니다!”</td>
-        <td>0회</td>
-        <td class="status-public">공개</td>
-        <td><button class="btn btn-hide">비공개로 전환</button></td>
-      </tr>
+  <!-- 리뷰 목록 (엘든 링) -->
+  <div id="eldenring" class="review-section">
+    <h2>🎮 엘든 링 리뷰 목록</h2>
 
-      <tr>
-        <td>user045</td>
-        <td>사이버펑크 2077</td>
-        <td>“버그가 너무 많아요”</td>
-        <td>3회</td>
-        <td class="status-hidden">비공개</td>
-        <td><button class="btn btn-show">공개로 복원</button></td>
-      </tr>
+    <div class="review-card">
+      <div class="review-meta">작성자: gamer01 | 작성일: 2025-02-03</div>
+      <div class="status reported">🚨 신고된 리뷰</div>
 
-      <tr>
-        <td>user077</td>
-        <td>발더스 게이트 3</td>
-        <td>“이 게임은 인생작이에요!”</td>
-        <td>1회</td>
-        <td class="status-public">공개</td>
-        <td><button class="btn btn-hide">비공개로 전환</button></td>
-      </tr>
-    </tbody>
-  </table>
+      <div class="criteria-grid">
+        <div class="criteria"><label>그래픽</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>완성도</label><span class="stars">★★★★☆</span></div>
+        <div class="criteria"><label>재미 / 몰입감</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>리플레이 가능성</label><span class="stars">★★★★☆</span></div>
+        <div class="criteria"><label>가격 만족도</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>첫인상</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>접근성</label><span class="stars">★★★☆☆</span></div>
+        <div class="criteria"><label>경쟁력</label><span class="stars">★★★★☆</span></div>
+      </div>
 
-  <!-- 돌아가기 버튼 -->
+      <div class="review-text">
+        전투 시스템이 정말 훌륭하고 보스전이 짜릿함.  
+        다만 초반 구간의 난이도가 높아 초심자에겐 어려울 수 있음.
+      </div>
+
+      <button class="btn-toggle">👁 비공개로 전환</button>
+    </div>
+  </div>
+
+  <!-- 리뷰 목록 (사이버펑크) -->
+  <div id="cyberpunk" class="review-section">
+    <h2>🎮 사이버펑크 2077 리뷰 목록</h2>
+
+    <div class="review-card">
+      <div class="review-meta">작성자: user777 | 작성일: 2025-02-01</div>
+      <div class="status normal">✅ 정상 리뷰</div>
+
+      <div class="criteria-grid">
+        <div class="criteria"><label>그래픽</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>완성도</label><span class="stars">★★★☆☆</span></div>
+        <div class="criteria"><label>재미 / 몰입감</label><span class="stars">★★★☆☆</span></div>
+        <div class="criteria"><label>리플레이 가능성</label><span class="stars">★★★☆☆</span></div>
+        <div class="criteria"><label>가격 만족도</label><span class="stars">★★★☆☆</span></div>
+        <div class="criteria"><label>첫인상</label><span class="stars">★★★★☆</span></div>
+        <div class="criteria"><label>접근성</label><span class="stars">★★★★☆</span></div>
+        <div class="criteria"><label>경쟁력</label><span class="stars">★★★☆☆</span></div>
+      </div>
+
+      <div class="review-text">
+        그래픽은 멋진데 버그가 여전히 많아요.  
+        업데이트로 좀 더 안정화되면 좋겠어요.
+      </div>
+
+      <button class="btn-toggle">👁 비공개로 전환</button>
+    </div>
+  </div>
+
+  <!-- 리뷰 목록 (발더스 게이트 3) -->
+  <div id="baldurs" class="review-section">
+    <h2>🎮 발더스 게이트 3 리뷰 목록</h2>
+
+    <div class="review-card">
+      <div class="review-meta">작성자: rpglover | 작성일: 2025-01-25</div>
+      <div class="status normal">✅ 정상 리뷰</div>
+
+      <div class="criteria-grid">
+        <div class="criteria"><label>그래픽</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>완성도</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>재미 / 몰입감</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>리플레이 가능성</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>가격 만족도</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>첫인상</label><span class="stars">★★★★★</span></div>
+        <div class="criteria"><label>접근성</label><span class="stars">★★★★☆</span></div>
+        <div class="criteria"><label>경쟁력</label><span class="stars">★★★★★</span></div>
+      </div>
+
+      <div class="review-text">
+        스토리, 캐릭터, 연출까지 완벽합니다.  
+        진짜 명작이에요!
+      </div>
+
+      <button class="btn-toggle">👁 비공개로 전환</button>
+    </div>
+  </div>
+
+  <!-- 돌아가기 -->
   <div class="back-section">
     <a href="admin_page.html" class="back-btn">← 관리자 홈으로 돌아가기</a>
   </div>
+
+  <script>
+    function showReviews(gameId) {
+      document.querySelectorAll('.review-section').forEach(sec => sec.classList.remove('active'));
+      const section = document.getElementById(gameId);
+      if (section) section.classList.add('active');
+      window.scrollTo({ top: section.offsetTop - 50, behavior: 'smooth' });
+    }
+  </script>
 
 </body>
 </html>
