@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게임 정보 수정 - <%= game.game_title %></title>
+  <style>
+    body{ font-family:Arial, sans-serif; background:#f4f6f9; margin:0 }
+    .container{ max-width:800px; margin:40px auto; background:#fff; padding:24px; border-radius:8px }
+    label{ display:block; margin:8px 0 4px }
+    input[type=text], textarea, input[type=date], input[type=number]{ width:100%; padding:8px; border:1px solid #ddd; border-radius:6px }
+    button{ margin-top:12px; padding:10px 14px; background:#007BFF; color:#fff; border:none; border-radius:6px }
+    .back{ margin-top:12px }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>게임 정보 수정</h1>
+    <form action="/admin/games/<%= game.game_id %>/edit" method="post">
+      <label for="game_title">제목</label>
+      <input id="game_title" name="game_title" type="text" value="<%= game.game_title %>">
+
+      <label for="description">설명</label>
+      <textarea id="description" name="description" rows="6"><%= game.description || '' %></textarea>
+
+      <label for="price">가격 (숫자, KRW)</label>
+      <input id="price" name="price" type="number" step="1" value="<%= game.price == null ? '' : game.price %>">
+
+      <label for="game_image">이미지 URL</label>
+      <input id="game_image" name="game_image" type="text" value="<%= game.game_image || '' %>">
+
+      <label for="developer">제작사</label>
+      <input id="developer" name="developer" type="text" value="<%= game.developer || '' %>">
+
+      <label for="release_date">출시일</label>
+      <input id="release_date" name="release_date" type="date" value="<%= game.release_date ? (new Date(game.release_date)).toISOString().slice(0,10) : '' %>">
+
+      <button type="submit">저장</button>
+    </form>
+
+    <div class="back">
+      <a href="/games/<%= game.game_id %>">← 게임 상세로 돌아가기</a>
+    </div>
+  </div>
+</body>
+</html>

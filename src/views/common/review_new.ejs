@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>리뷰 작성</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4f6f9; margin:0 }
+    header { background:#007BFF; color:#fff; padding:14px 30px; display:flex; justify-content:space-between }
+    .container { max-width:900px; margin:28px auto; background:#fff; padding:24px; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.06) }
+    .grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:12px }
+    .form-group { margin-bottom:14px }
+    label{ display:block; margin-bottom:6px; font-weight:700 }
+    select, textarea, input[type=text] { width:100%; padding:10px; border:1px solid #e2e8f0; border-radius:8px }
+    .star-select { font-size:16px }
+    .full-width { grid-column: 1 / -1 }
+    button{ background:#007BFF; color:#fff; padding:10px 14px; border:none; border-radius:8px; font-weight:700 }
+  </style>
+</head>
+<body>
+  <header>
+    <div>🎮 게임 마켓</div>
+    <div>
+      <% if (user) { %>
+        <a href="/users/my_page" style="color:white; margin-right:12px"><%= user.id %></a>
+        <a href="/auth/logout" style="color:white">로그아웃</a>
+      <% } else { %>
+        <a href="/auth/login" style="color:white">로그인</a>
+      <% } %>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>리뷰 작성</h2>
+    <form action="/reviews" method="post">
+      <input type="hidden" name="game_id" value="<%= gameId %>">
+      <div class="grid">
+        <div class="form-group">
+          <label for="rating_graphic">그래픽</label>
+          <div class="stars" data-field="rating_graphic" aria-label="그래픽 별점">
+            <span class="star" data-value="1">☆</span>
+            <span class="star" data-value="2">☆</span>
+            <span class="star" data-value="3">☆</span>
+            <span class="star" data-value="4">☆</span>
+            <span class="star" data-value="5">☆</span>
+          </div>
+          <input type="hidden" name="rating_graphic" value="">
+        </div>
+        <div class="form-group">
+          <label for="rating_quality">완성도</label>
+          <div class="stars" data-field="rating_quality" aria-label="완성도 별점">
+            <span class="star" data-value="1">☆</span>
+            <span class="star" data-value="2">☆</span>
+            <span class="star" data-value="3">☆</span>
+            <span class="star" data-value="4">☆</span>
+            <span class="star" data-value="5">☆</span>
+          </div>
+          <input type="hidden" name="rating_quality" value="">
+        </div>
+
+        <div class="form-group">
+          <label for="rating_fun">재미 / 몰입감</label>
+          <div class="stars" data-field="rating_fun" aria-label="재미/몰입감 별점">
+            <span class="star" data-value="1">☆</span>
+            <span class="star" data-value="2">☆</span>
+            <span class="star" data-value="3">☆</span>
+            <span class="star" data-value="4">☆</span>
+            <span class="star" data-value="5">☆</span>
+          </div>
+          <input type="hidden" name="rating_fun" value="">
+        </div>
+        <div class="form-group">
+          <label for="rating_replay">리플레이 가능성</label>
+          <div class="stars" data-field="rating_replay" aria-label="리플레이 가능성 별점">
+            <span class="star" data-value="1">☆</span>
+            <span class="star" data-value="2">☆</span>
+            <span class="star" data-value="3">☆</span>
+            <span class="star" data-value="4">☆</span>
+            <span class="star" data-value="5">☆</span>
+          </div>
+          <input type="hidden" name="rating_replay" value="">
+        </div>
+
+        <div class="form-group">
+          <label for="rating_price">가격 만족도</label>
+          <div class="stars" data-field="rating_price" aria-label="가격 만족도 별점">
+            <span class="star" data-value="1">☆</span>
+            <span class="star" data-value="2">☆</span>
+            <span class="star" data-value="3">☆</span>
+            <span class="star" data-value="4">☆</span>
+            <span class="star" data-value="5">☆</span>
+          </div>
+          <input type="hidden" name="rating_price" value="">
+        </div>
+        <div class="form-group">
+          <label for="rating_first_impression">첫인상</label>
+          <div class="stars" data-field="rating_first_impression" aria-label="첫인상 별점">
+            <span class="star" data-value="1">☆</span>
+            <span class="star" data-value="2">☆</span>
+            <span class="star" data-value="3">☆</span>
+            <span class="star" data-value="4">☆</span>
+            <span class="star" data-value="5">☆</span>
+          </div>
+          <input type="hidden" name="rating_first_impression" value="">
+        </div>
+
+        <div class="form-group">
+          <label for="rating_access">접근성</label>
+          <div class="stars" data-field="rating_access" aria-label="접근성 별점">
+            <span class="star" data-value="1">☆</span>
+            <span class="star" data-value="2">☆</span>
+            <span class="star" data-value="3">☆</span>
+            <span class="star" data-value="4">☆</span>
+            <span class="star" data-value="5">☆</span>
+          </div>
+          <input type="hidden" name="rating_access" value="">
+        </div>
+        <div class="form-group">
+          <label for="rating_competitive">경쟁력</label>
+          <div class="stars" data-field="rating_competitive" aria-label="경쟁력 별점">
+            <span class="star" data-value="1">☆</span>
+            <span class="star" data-value="2">☆</span>
+            <span class="star" data-value="3">☆</span>
+            <span class="star" data-value="4">☆</span>
+            <span class="star" data-value="5">☆</span>
+          </div>
+          <input type="hidden" name="rating_competitive" value="">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="comment">리뷰 내용</label>
+          <textarea name="comment" id="comment" rows="8"></textarea>
+        </div>
+      </div>
+      <div style="margin-top:10px;text-align:center">
+        <button type="submit">저장</button>
+      </div>
+    </form>
+  </div>
+    <div id="toast" style="position:fixed;right:20px;bottom:20px;display:none;background:#111;color:#fff;padding:14px 20px;border-radius:10px;box-shadow:0 12px 30px rgba(2,6,23,0.35);z-index:9999;min-width:220px;max-width:420px;font-size:16px;text-align:center"></div>
+
+    <script>
+      // star widget
+      function initStars(){
+        document.querySelectorAll('.stars').forEach(container => {
+          const stars = Array.from(container.querySelectorAll('.star'));
+          const hidden = container.nextElementSibling && container.nextElementSibling.tagName === 'INPUT' ? container.nextElementSibling : null;
+          function setValue(v){
+            stars.forEach(s => { s.textContent = (Number(s.dataset.value) <= v) ? '★' : '☆'; s.classList.toggle('on', Number(s.dataset.value) <= v); });
+            if (hidden) hidden.value = v || '';
+          }
+          stars.forEach(s => {
+            s.addEventListener('click', ()=> setValue(Number(s.dataset.value)));
+            s.addEventListener('mouseover', ()=> { const v = Number(s.dataset.value); stars.forEach(x=> x.textContent = (Number(x.dataset.value) <= v) ? '★' : '☆'); });
+            s.addEventListener('mouseout', ()=> { const v = Number(hidden && hidden.value) || 0; stars.forEach(x=> x.textContent = (Number(x.dataset.value) <= v) ? '★' : '☆'); });
+          });
+        });
+      }
+
+      function showToast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.style.display='block'; clearTimeout(t._hid); t._hid=setTimeout(()=> t.style.display='none',2800); }
+
+      async function postUrlEncoded(url,obj){ const body = Object.keys(obj).map(k=>encodeURIComponent(k)+'='+encodeURIComponent(obj[k])).join('&'); const res = await fetch(url,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded','X-Requested-With':'XMLHttpRequest','Accept':'application/json'},body}); const c = res.headers.get('content-type')||''; if (c.includes('application/json')) return { ok: res.ok, json: await res.json() }; return { ok: res.ok, text: await res.text() } }
+
+      document.addEventListener('DOMContentLoaded', ()=>{
+        initStars();
+        const form = document.querySelector('form');
+        if (!form) return;
+        form.addEventListener('submit', async (e)=>{
+          e.preventDefault();
+          const data = {};
+          new FormData(form).forEach((v,k)=>{ data[k]=v });
+          const res = await postUrlEncoded(form.action, data);
+          if (res.ok && res.json && res.json.success){
+            showToast(res.json.message || '리뷰 작성 완료');
+            // optionally clear form
+            // form.reset();
+          } else {
+            showToast((res.json && res.json.message) || res.text || '리뷰 저장 실패');
+          }
+        });
+      });
+    </script>
+</body>
+</html>

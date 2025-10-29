@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게임 마켓 - 사용자 메인</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 0; }
+    header { background-color: #007BFF; color: white; display:flex; justify-content:space-between; align-items:center; padding:15px 40px; }
+    .header-left h1{ margin:0; font-size:22px }
+    .header-right a.button{ background:white; color:#007BFF; padding:10px 16px; margin-left:10px; border-radius:6px; text-decoration:none; font-weight:bold }
+    .search-container{ text-align:center; margin:30px 0 20px 0; display:flex; justify-content:center; gap:8px }
+    .search-container input[type="text"]{ width:50%; padding:12px; border:1px solid #ccc; border-radius:8px }
+    .search-container button{ padding:12px 18px; border:none; background:#4CAF50; color:#fff; border-radius:8px }
+    .game-list{ display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:25px; padding:20px 40px }
+    .game-card{ background:#fff; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1); overflow:hidden; display:flex; flex-direction:column }
+    .game-card img{ width:100%; height:160px; object-fit:cover }
+    .game-info{ padding:15px; text-align:left; border-top:1px solid #eee }
+    .game-info h3{ margin:5px 0; font-size:18px }
+    .price{ font-weight:bold; color:#2e8b57 }
+    .button-group{ display:flex; justify-content:space-around; align-items:center; padding:12px; border-top:1px solid #eee; background:#fafafa; gap:8px }
+    .button-group form, .button-group a { flex:1 }
+    .btn { display:inline-block; width:100%; padding:10px 0; font-size:13px; border-radius:6px; color:white; text-align:center; text-decoration:none }
+    .wishlist-btn{ background:#007BFF } .buy-btn{ background:#4CAF50 } .detail-btn{ background:#6c757d }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-left"><h1>🎮 게임 마켓</h1></div>
+    <div class="header-right">
+      <a class="button" href="/users/my_page">마이페이지</a>
+      <a class="button" href="/auth/logout">로그아웃</a>
+    </div>
+  </header>
+
+  <div class="search-container">
+    <input type="text" placeholder="게임 이름 또는 장르를 검색하세요" id="searchInput">
+    <button id="searchBtn">검색</button>
+    <button class="sort-btn">정렬순 ▼</button>
+  </div>
+
+  <div class="game-list">
+    <% const list = Array.isArray(games) ? games : []; %>
+
+    <% function fmtPrice(p) {
+         if (p === 0) return '무료';
+         if (p == null) return '-';
+         const n = Number(p);
+         if (Number.isNaN(n)) return '-';
+         return n.toLocaleString('ko-KR') + '원';
+       }
+    %>
+
+    <% if (list.length === 0) { %>
+      <p style="grid-column:1/-1; text-align:center; color:#666;">등록된 게임이 없습니다.</p>
+    <% } else { %>
+      <% list.forEach(g => { %>
+        <div class="game-card">
+          <img src="<%= g.game_image %>" alt="<%= g.game_title %>">
+          <div class="game-info">
+            <h3><%= g.game_title %></h3>
+            <p>장르: <%= g.genre || '알 수 없음' %></p>
+            <p class="price"><%= fmtPrice(g.price) %></p>
+          </div>
+          <div class="button-group">
+            <form action="/users/wishlist/add" method="post" class="wishlist-form">
+              <input type="hidden" name="game_id" value="<%= g.game_id %>">
+              <button class="btn wishlist-btn" type="submit">♡ 관심목록</button>
+            </form>
+            <form action="/users/purchase" method="post" class="purchase-form">
+              <input type="hidden" name="game_id" value="<%= g.game_id %>">
+              <button class="btn buy-btn" type="submit">💰 구매하기</button>
+            </form>
+            <a class="btn detail-btn" href="/games/<%= g.game_id %>">🔍 상세정보</a>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+
+  <script>
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      const q = document.getElementById('searchInput').value.trim();
+      // simple client-side navigation to search route (implement backend later)
+      if (q) location.href = '/games?search=' + encodeURIComponent(q);
+    });
+    // intercept purchase forms and submit via fetch to show popup instead of navigating
+    document.querySelectorAll('form.purchase-form').forEach(form => {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type=submit]');
+        if (btn) { btn.disabled = true; btn.textContent = '구매 중...'; }
+        const formData = new FormData(form);
+        try {
+          // send as application/x-www-form-urlencoded so express.urlencoded can parse it
+          const params = new URLSearchParams(formData);
+          const res = await fetch(form.action, {
+            method: 'POST',
+            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+            body: params.toString(),
+          });
+          if (res.ok) {
+            const data = await res.json().catch(() => null);
+            alert((data && data.message) ? data.message : '구매가 완료되었습니다.');
+          } else {
+            const txt = await res.text();
+            alert('구매 중 오류가 발생했습니다: ' + (txt || res.statusText));
+          }
+        } catch (err) {
+          console.error('purchase error', err);
+          alert('네트워크 오류가 발생했습니다. 잠시 후 다시 시도하세요.');
+        } finally {
+          if (btn) { btn.disabled = false; btn.textContent = '💰 구매하기'; }
+        }
+      });
+    });
+    // intercept wishlist forms and submit via fetch to show popup and toggle button
+    document.querySelectorAll('form.wishlist-form').forEach(form => {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type=submit]');
+        if (btn) { btn.disabled = true; }
+        const formData = new FormData(form);
+        const params = new URLSearchParams(formData);
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+            body: params.toString(),
+          });
+          if (res.ok) {
+            const data = await res.json().catch(() => null);
+            alert((data && data.message) ? data.message : '관심목록에 추가되었습니다');
+            // toggle button to '찜완료'
+            if (btn) { btn.textContent = '✓ 찜완료'; btn.disabled = true; btn.style.opacity = '0.8'; }
+          } else {
+            const txt = await res.text();
+            alert('오류: ' + (txt || res.statusText));
+          }
+        } catch (err) {
+          console.error('wishlist error', err);
+          alert('네트워크 오류가 발생했습니다. 잠시 후 다시 시도하세요.');
+        } finally {
+          // leave disabled state if succeeded
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게임 마켓 - 관리자 페이지</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4f6f9; margin:0; padding:0 }
+    header { background:#dc3545; color:#fff; display:flex; justify-content:space-between; align-items:center; padding:15px 40px }
+    .header-left h1{ margin:0; font-size:22px }
+    .header-right a.button{ background:#fff; color:#dc3545; padding:10px 16px; margin-left:10px; border-radius:6px; text-decoration:none; font-weight:bold }
+    .search-container{ text-align:center; margin:30px 0 20px 0; display:flex; justify-content:center; gap:8px }
+    .search-container input[type="text"]{ width:50%; padding:12px; border:1px solid #ccc; border-radius:8px }
+    .game-list{ display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:25px; padding:20px 40px }
+    .game-card{ background:#fff; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1); overflow:hidden; display:flex; flex-direction:column }
+    .game-card img{ width:100%; height:160px; object-fit:cover }
+    .game-info{ padding:15px; text-align:left; border-top:1px solid #eee }
+    .button-group{ display:flex; justify-content:space-around; padding:12px; border-top:1px solid #eee; background:#fafafa; gap:8px }
+    .btn{ flex:1; display:inline-block; padding:10px 0; border-radius:6px; color:#fff; text-align:center; text-decoration:none }
+    .edit-btn{ background:#007BFF } .delete-btn{ background:#dc3545 } .detail-btn{ background:#6c757d }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-left"><h1>🛠️ 관리자 페이지</h1></div>
+    <div class="header-right">
+      <a class="button" href="/admin/admin_page">관리자페이지</a>
+      <a class="button" href="/auth/logout">로그아웃</a>
+    </div>
+  </header>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="게임 이름 또는 장르 검색">
+    <button id="searchBtn" class="search-btn">검색</button>
+    <button class="sort-btn">정렬순 ▼</button>
+  </div>
+
+  <div class="game-list">
+    <% const list = Array.isArray(games) ? games : []; %>
+
+    <% function fmtPrice(p) {
+         if (p === 0) return '무료';
+         if (p == null) return '-';
+         const n = Number(p);
+         if (Number.isNaN(n)) return '-';
+         return n.toLocaleString('ko-KR') + '원';
+       }
+    %>
+
+    <% if (list.length === 0) { %>
+      <p style="grid-column:1/-1; text-align:center; color:#666;">등록된 게임이 없습니다.</p>
+    <% } else { %>
+      <% list.forEach(g => { %>
+        <div class="game-card">
+          <img src="<%= g.game_image %>" alt="<%= g.game_title %>">
+          <div class="game-info">
+            <h3><%= g.game_title %></h3>
+            <p>장르: <%= g.genre || '알 수 없음' %></p>
+            <p class="price"><%= fmtPrice(g.price) %></p>
+          </div>
+          <div class="button-group">
+            <a class="btn detail-btn" href="/games/<%= g.game_id %>">🔍 상세보기</a>
+            <form action="/admin/games/<%= g.game_id %>/delete" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+              <button type="submit" class="btn delete-btn">🗑️ 삭제</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+
+  <script>
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      const q = document.getElementById('searchInput').value.trim();
+      if (q) location.href = '/admin/games?search=' + encodeURIComponent(q);
+    });
+  </script>
+
+</body>
+</html>

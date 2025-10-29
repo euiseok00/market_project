@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게임 마켓 - 보유목록</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f4f6f9; display:flex; justify-content:center; margin:0; padding:0 }
+    .container { width:90%; max-width:1000px; background:#fff; margin-top:50px; padding:40px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1) }
+    h1 { text-align:center; color:#333; margin-bottom:30px }
+    table { width:100%; border-collapse:collapse }
+    th, td { text-align:center; padding:12px; border-bottom:1px solid #ddd; font-size:15px }
+    th { background:#f8f9fa; color:#333 }
+    img { width:120px; border-radius:6px }
+    .btn-review { background:#007BFF; color:#fff; border:none; padding:8px 12px; border-radius:6px; cursor:pointer }
+    .btn-review:hover { background:#0056b3 }
+    .back-btn { display:block; text-align:center; margin-top:25px }
+    .back-btn a { text-decoration:none; color:#007BFF; font-weight:bold }
+    .back-btn a:hover { text-decoration:underline }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎮 보유목록</h1>
+
+    <% function fmtPrice(p) { if (p === 0) return '무료'; if (p == null) return '-'; const n = Number(p); if (Number.isNaN(n)) return '-'; return n.toLocaleString('ko-KR') + '원'; } %>
+
+    <table>
+      <thead>
+        <tr>
+          <th>이미지</th>
+          <th>게임 이름</th>
+          <th>장르</th>
+          <th>구매일</th>
+          <th>가격</th>
+          <th>관리</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% const list = Array.isArray(items) ? items : [];
+           if (list.length === 0) { %>
+          <tr><td colspan="6" style="padding:30px; color:#666">구매한 게임이 없습니다.</td></tr>
+        <% } else { list.forEach(p => { %>
+          <tr>
+            <td><img src="<%= p.game_image %>"></td>
+            <td><%= p.game_title %></td>
+            <td><%= p.genre || '알 수 없음' %></td>
+            <td><%= p.purchased_at ? new Date(p.purchased_at).toISOString().slice(0,10) : '-' %></td>
+            <td><%= fmtPrice(p.price) %></td>
+            <td>
+              <a class="btn-review" href="/reviews/new?game_id=<%= p.game_id %>">리뷰작성</a>
+            </td>
+          </tr>
+        <% }) } %>
+      </tbody>
+    </table>
+
+    <div class="back-btn">
+      <a href="/users/my_page">← 마이페이지로 돌아가기</a>
+    </div>
+  </div>
+</body>
+</html>

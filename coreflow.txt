@@ -1,0 +1,121 @@
+
+
+Core Logic Summary
+
+1. Client (EJS)
+
+사용자·관리자 공용 템플릿 사용
+
+role에 따라 버튼/기능 다르게 렌더링
+
+2. Server (Express)
+
+/games/:id → 게임 상세 + 리뷰 조회
+
+/reviews/report → 리뷰 신고 등록
+
+/admin/reviews → 관리자 검토 페이지
+
++ 게임 목록 보여주기(정렬기능 ex 가나다순 가격순) , 마이페이지, 위시리스트 등록 등등 
+
+3. Database (MariaDB)
+
+8개 테이블 구조 (User, Game, Review, Report, Purchase, Wish, Genre, GameGenre)
+
+
+Steam API 데이터 저장
+
+External API (Steam + axios)
+
+Steam API → test_insert_steam.js → Game 테이블 자동 삽입,  text review 도 일부 가져올 예정 
+
+4. (Optional AI Feature)
+
+리뷰 요약 + 음성 변환 (TTS) → ✅ OpenAI GPT-4o-mini 요약 + OpenAI TTS 구조 반영 얘르 활용해서 텍스트 리뷰에 대한 요약 정보를 음성으로 서비스해서 차별화 
+
+5. ui 폴더 같은 경우는 직접적 사용 x 디자인 및 기능 참고용
+
+
+Table User {
+  user_id int [pk, increment]
+  id varchar [not null, unique]
+  password varchar [not null]
+  role enum('admin','user') [not null]
+}
+
+// Review 테이블
+Table Review {
+  review_id int [pk, increment]
+  user_id int [not null, ref: > User.user_id]
+  game_id int [not null, ref: > Game.game_id]
+
+  rating_graphic tinyint [not null]
+  rating_quality tinyint [not null]
+  rating_fun tinyint [not null]
+  rating_replay tinyint [not null]
+  rating_price tinyint [not null]
+  rating_first_impression tinyint [not null]
+  rating_access tinyint [not null]
+  rating_competitive tinyint [not null]
+
+  comment text [not null]
+
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  is_hidden boolean [default: false]   // 🆕 비공개 여부
+}
+
+// Report (신고)
+Table Report {
+  report_id int [pk, increment]
+  review_id int [not null, ref: > Review.review_id]
+  reporter_id int [not null, ref: > User.user_id]
+  detail text
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  reason enum('욕설/비방', '스팸', '부적절한 내용', '도배', '기타') [default: '기타']
+}
+
+// Purchase 테이블
+Table Purchase {
+  user_id int [not null, ref: > User.user_id]
+  game_id int [not null, ref: > Game.game_id]
+  purchased_at datetime [default: `CURRENT_TIMESTAMP`]
+  indexes {
+  (user_id, game_id) [pk]  
+  }
+}
+
+// Wish 테이블
+Table Wish {
+  user_id int [not null, ref: > User.user_id]
+  game_id int [not null, ref: > Game.game_id]
+  created_at datetime [default: `CURRENT_TIMESTAMP`]
+  indexes {
+  (user_id, game_id) [pk]
+  }
+}
+
+// Game 테이블
+Table Game {
+  game_id int [pk, increment]
+  game_title varchar [not null, unique]
+  game_image varchar(255) [not null]
+  release_date date [not null]
+  developer varchar [not null]
+  price int [not null]
+  description text [not null]
+}
+
+// GameGenre 테이블 (연결 테이블)
+Table GameGenre {
+  game_id int [not null, ref: > Game.game_id]
+  genre_id int [not null, ref: > Genre.genre_id]
+  indexes {
+  (game_id, genre_id) [pk]
+  }
+}
+
+// Genre 테이블
+Table Genre {
+  genre_id int [pk, increment]
+  genre_name varchar [not null, unique]
+}

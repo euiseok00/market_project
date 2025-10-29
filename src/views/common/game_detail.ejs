@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title><%= game.game_title %> - 상세정보</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      background: #fff;
+      margin-top: 50px;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+      font-size: 28px;
+    }
+
+    .game-image {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .game-image img {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .info-section {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+
+    .info-section p {
+      margin: 10px 0;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .info-section strong {
+      color: #007BFF;
+      display: inline-block;
+      width: 90px;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #2e8b57;
+    }
+
+    .action-row{margin-top:12px;display:flex;gap:10px;align-items:center}
+    .action-row .btn{padding:10px 14px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
+    .btn-primary{background:#007BFF;color:#fff}
+    .btn-ghost{background:white;border:1px solid #d1d5db;color:#111}
+
+    .description {
+      margin-top: 25px;
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+    }
+
+    .description h2 {
+      color: #007BFF;
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .description p {
+      color: #555;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* 리뷰 섹션 */
+    .review-section {
+      border-top: 1px solid #ddd;
+      padding-top: 25px;
+      margin-top: 40px;
+      background-color: #fafafa;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .review-section h2 {
+      font-size: 20px;
+      color: #007BFF;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .review-card {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .review-meta {
+      font-size: 13px;
+      color: #777;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .criteria-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px 40px;
+      margin-top: 15px;
+      margin-bottom: 20px;
+    }
+
+    .criteria {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 10px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .criteria label {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .stars {
+      color: #FFD700;
+      font-size: 20px;
+      letter-spacing: 3px;
+    }
+
+    .review-text {
+      font-size: 15px;
+      color: #444;
+      line-height: 1.6;
+      margin-top: 10px;
+      margin-bottom: 25px;
+      white-space: pre-line;
+    }
+
+    .report-btn {
+      display: block;
+      margin-left: auto;
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: background-color 0.2s, transform 0.15s;
+    }
+
+    .report-btn:hover {
+      background-color: #b02a37;
+      transform: translateY(-2px);
+    }
+
+    .back-btn {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .link-btn {
+      display: inline-block;
+      background-color: #007BFF;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      transition: background-color 0.2s, transform 0.15s;
+    }
+
+    .link-btn:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><%= game.game_title %></h1>
+
+    <div class="game-info">
+      <div class="game-image">
+        <img src="<%= game.game_image %>" alt="<%= game.game_title %>">
+      </div>
+
+      <div class="info-section">
+      <p><strong>제목:</strong> <%= game.game_title %></p>
+      <% if (game.release_date) { %>
+        <p><strong>출시일:</strong> <%= (new Date(game.release_date)).toISOString().slice(0,10) %></p>
+      <% } %>
+      <% if (game.developer) { %>
+        <p><strong>제작사:</strong> <%= game.developer %></p>
+      <% } %>
+
+      <% function fmtPrice(p) { if (p === 0) return '무료'; if (p == null) return '-'; const n = Number(p); if (Number.isNaN(n)) return '-'; return n.toLocaleString('ko-KR') + '원'; } %>
+      <p class="price"><strong>가격:</strong> <%= fmtPrice(game.price) %></p>
+
+      <% if (game.genre) { %>
+        <p><strong>장르:</strong> <%= game.genre %></p>
+      <% } %>
+
+      <!-- actions: 구매 / 관심목록 (AJAX) -->
+      <div class="action-row">
+        <% if (user) { %>
+          <form class="ajax-form" action="/users/purchase" method="post">
+            <input type="hidden" name="game_id" value="<%= game.game_id %>">
+            <button type="submit" class="btn btn-primary purchase-btn">구매하기</button>
+          </form>
+
+          <form class="ajax-form wishlist-add" action="/users/wishlist/add" method="post">
+            <input type="hidden" name="game_id" value="<%= game.game_id %>">
+            <button type="submit" class="btn btn-ghost wishlist-btn">관심목록</button>
+          </form>
+
+          <form class="ajax-form wishlist-remove" action="/users/wishlist/remove" method="post" style="display:none">
+            <input type="hidden" name="game_id" value="<%= game.game_id %>">
+            <button type="submit" class="btn btn-ghost wishlist-remove-btn">찜해제</button>
+          </form>
+        <% } else { %>
+          <a href="/auth/login" class="btn btn-primary">로그인 후 구매</a>
+          <a href="/auth/login" class="btn btn-ghost">로그인 후 찜</a>
+        <% } %>
+      </div>
+
+      <p class="description"><strong>게임 설명</strong></p>
+      <p style="color:#555; white-space:pre-line"><%= game.description || '-' %></p>
+
+      <% if (user && user.role === 'admin') { %>
+        <div style="margin-top:12px; text-align:right">
+          <a href="/admin/games/<%= game.game_id %>/edit" class="link-btn">✏️ 게임 정보 수정</a>
+        </div>
+      <% } %>
+      </div>
+    </div>
+
+    <div class="review-section">
+      <h2>⭐ 사용자 리뷰</h2>
+      <% if (user && purchased) { %>
+        <div style="text-align:center; margin-bottom:12px">
+          <a href="/reviews/new?game_id=<%= game.game_id %>" class="link-btn" style="padding:8px 16px; font-size:14px">리뷰 남기기</a>
+        </div>
+      <% } %>
+
+      <% if (!reviews || reviews.length === 0) { %>
+        <p style="text-align:center; color:#666">아직 등록된 리뷰가 없습니다.</p>
+      <% } else { %>
+        <% reviews.forEach(r => { %>
+          <div class="review-card">
+            <div class="review-meta">작성자: <%= r.id %> | 작성일: <%= r.created_at ? (new Date(r.created_at)).toISOString().slice(0,10) : '-' %></div>
+
+            <div class="criteria-grid">
+              <div class="criteria"><label>그래픽</label><span class="stars"><%= '★'.repeat(r.rating_graphic || 0) + '☆'.repeat(5 - (r.rating_graphic || 0)) %></span></div>
+              <div class="criteria"><label>완성도</label><span class="stars"><%= '★'.repeat(r.rating_quality || 0) + '☆'.repeat(5 - (r.rating_quality || 0)) %></span></div>
+              <div class="criteria"><label>재미 / 몰입감</label><span class="stars"><%= '★'.repeat(r.rating_fun || 0) + '☆'.repeat(5 - (r.rating_fun || 0)) %></span></div>
+              <div class="criteria"><label>리플레이 가능성</label><span class="stars"><%= '★'.repeat(r.rating_replay || 0) + '☆'.repeat(5 - (r.rating_replay || 0)) %></span></div>
+              <div class="criteria"><label>가격 만족도</label><span class="stars"><%= '★'.repeat(r.rating_price || 0) + '☆'.repeat(5 - (r.rating_price || 0)) %></span></div>
+              <div class="criteria"><label>첫인상</label><span class="stars"><%= '★'.repeat(r.rating_first_impression || 0) + '☆'.repeat(5 - (r.rating_first_impression || 0)) %></span></div>
+              <div class="criteria"><label>접근성</label><span class="stars"><%= '★'.repeat(r.rating_access || 0) + '☆'.repeat(5 - (r.rating_access || 0)) %></span></div>
+              <div class="criteria"><label>경쟁력</label><span class="stars"><%= '★'.repeat(r.rating_competitive || 0) + '☆'.repeat(5 - (r.rating_competitive || 0)) %></span></div>
+            </div>
+
+            <div class="review-text"><%= r.comment || '' %></div>
+
+            <% if (user && user.role === 'admin') { %>
+              <form action="/admin/reviews/<%= r.review_id %>/hide" method="post" style="display:inline-block; margin-right:8px;">
+                <button type="submit" class="report-btn">🚨 비공개</button>
+              </form>
+            <% } else if (user) { %>
+              <form action="/reviews/<%= r.review_id %>/report" method="post" style="display:inline-block; margin-right:8px;">
+                <button type="submit" class="report-btn">🚨 리뷰 신고하기</button>
+              </form>
+            <% } %>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+
+    <div class="back-btn">
+      <% if (user && user.role === 'admin') { %>
+        <a href="/admin/game_list" class="link-btn">← 목록으로 돌아가기</a>
+      <% } else { %>
+        <a href="/users/game_list" class="link-btn">← 목록으로 돌아가기</a>
+      <% } %>
+    </div>
+  </div>
+  <div id="toast" style="position:fixed;right:20px;bottom:20px;display:none;background:#111;color:#fff;padding:14px 20px;border-radius:10px;box-shadow:0 12px 30px rgba(2,6,23,0.35);z-index:9999;min-width:220px;max-width:420px;font-size:16px;text-align:center"></div>
+
+  <script>
+    // small helper to POST urlencoded bodies
+    async function postUrlEncoded(url, obj){
+      const body = Object.keys(obj).map(k=>encodeURIComponent(k)+'='+encodeURIComponent(obj[k])).join('&');
+      const res = await fetch(url, {method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded','X-Requested-With':'XMLHttpRequest','Accept':'application/json'},body});
+      const c = res.headers.get('content-type')||'';
+      if (c.includes('application/json')) return { ok: res.ok, json: await res.json() };
+      return { ok: res.ok, text: await res.text() };
+    }
+
+    function showToast(msg){
+      const t = document.getElementById('toast'); t.textContent = msg; t.style.display = 'block'; clearTimeout(t._hid); t._hid = setTimeout(()=> t.style.display='none',2800);
+    }
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // purchase
+      const pform = document.querySelector('form[action="/users/purchase"]');
+      if (pform){
+        pform.addEventListener('submit', async (e)=>{
+          e.preventDefault();
+          const game_id = pform.querySelector('input[name="game_id"]').value;
+          const btn = pform.querySelector('.purchase-btn'); btn.disabled=true;
+          const r = await postUrlEncoded(pform.action, { game_id });
+          if (r.ok && r.json && r.json.success !== false){ showToast((r.json && r.json.message) || '구매완료'); btn.textContent='구매완료'; }
+          else { const message = (r.json && r.json.message) || r.text || '구매 실패'; showToast(message); btn.disabled=false; }
+        });
+      }
+
+      // wishlist add/remove
+      const wadd = document.querySelector('form.wishlist-add');
+      const wrem = document.querySelector('form.wishlist-remove');
+      const wbtn = document.querySelector('.wishlist-btn');
+      if (wadd){
+        wadd.addEventListener('submit', async (e)=>{
+          e.preventDefault();
+          const game_id = wadd.querySelector('input[name="game_id"]').value;
+          const r = await postUrlEncoded(wadd.action, { game_id });
+          if (r.ok && r.json && r.json.success){
+            // only show popup; do not change button text or visibility
+            showToast(r.json.message||'관심목록에 추가되었습니다');
+          } else {
+            showToast((r.json && r.json.message) || r.text || '실패');
+          }
+        });
+      }
+      if (wrem){
+        wrem.addEventListener('submit', async (e)=>{
+          e.preventDefault();
+          const game_id = wrem.querySelector('input[name="game_id"]').value;
+          const r = await postUrlEncoded(wrem.action, { game_id });
+          if (r.ok && r.json && r.json.success){
+            // only show popup; do not change button text or visibility
+            showToast(r.json.message||'관심목록에서 삭제되었습니다');
+          } else {
+            showToast((r.json && r.json.message) || r.text || '삭제 실패');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

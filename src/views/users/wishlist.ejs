@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게임 마켓 - 관심목록</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin:0; padding:0; display:flex; justify-content:center }
+    .container { width:90%; max-width:1000px; background:#fff; margin-top:50px; padding:40px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1) }
+    h1 { text-align:center; color:#333; margin-bottom:30px }
+    table { width:100%; border-collapse:collapse }
+    th, td { text-align:center; padding:12px; border-bottom:1px solid #ddd; font-size:15px }
+    th { background:#f8f9fa; color:#333 }
+    img { width:120px; border-radius:6px }
+    button { background:#dc3545; color:white; border:none; padding:8px 14px; border-radius:6px; cursor:pointer; font-size:13px }
+    button:hover { background:#b52a35 }
+    .back-btn { display:block; text-align:center; margin-top:25px }
+    .back-btn a { text-decoration:none; color:#007BFF; font-weight:bold }
+    .back-btn a:hover { text-decoration:underline }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>♡ 관심목록</h1>
+
+    <% function fmtPrice(p) { if (p === 0) return '무료'; if (p == null) return '-'; const n = Number(p); if (Number.isNaN(n)) return '-'; return n.toLocaleString('ko-KR') + '원'; } %>
+
+    <table>
+      <thead>
+        <tr>
+          <th>이미지</th>
+          <th>게임 이름</th>
+          <th>장르</th>
+          <th>가격</th>
+          <th>관리</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% const list = Array.isArray(items) ? items : [];
+           if (list.length === 0) { %>
+          <tr><td colspan="5" style="padding:30px; color:#666">관심목록이 비어 있습니다.</td></tr>
+        <% } else { list.forEach(g => { %>
+          <tr>
+            <td><img src="<%= g.game_image %>"></td>
+            <td><%= g.game_title %></td>
+            <td><%= g.genre || '알 수 없음' %></td>
+            <td><%= fmtPrice(g.price) %></td>
+            <td>
+                <form action="/users/wishlist/remove" method="post" style="display:inline" class="wishlist-remove-form">
+                  <input type="hidden" name="game_id" value="<%= g.game_id %>">
+                  <button type="submit">삭제</button>
+                </form>
+            </td>
+          </tr>
+        <% }) } %>
+      </tbody>
+    </table>
+
+    <div class="back-btn">
+      <a href="/users/my_page">← 마이페이지로 돌아가기</a>
+    </div>
+  </div>
+  <script>
+    // intercept remove actions to delete row and show popup
+    document.querySelectorAll('form.wishlist-remove-form').forEach(form => {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const tr = form.closest('tr');
+        const formData = new FormData(form);
+        const params = new URLSearchParams(formData);
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+            body: params.toString(),
+          });
+          if (res.ok) {
+            const data = await res.json().catch(()=>null);
+            alert((data && data.message) ? data.message : '관심목록에서 삭제되었습니다');
+            if (tr) tr.remove();
+          } else {
+            const txt = await res.text();
+            alert('오류: ' + (txt || res.statusText));
+          }
+        } catch (err) {
+          console.error('wishlist remove error', err);
+          alert('네트워크 오류가 발생했습니다. 잠시 후 다시 시도하세요.');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

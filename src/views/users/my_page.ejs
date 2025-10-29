@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게임 마켓 - 마이페이지</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .mypage-container {
+      width: 90%;
+      max-width: 1000px;
+      background: #fff;
+      margin-top: 50px;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 26px;
+    }
+
+    .user-info {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .user-info p {
+      margin: 6px 0;
+      font-size: 15px;
+      color: #555;
+    }
+
+    .sections {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .section-card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 30px 20px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .section-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+      border-color: #007BFF;
+    }
+
+    .section-card h2 {
+      color: #007BFF;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .section-card p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .section-card a {
+      display: inline-block;
+      margin-top: 15px;
+      text-decoration: none;
+      background-color: #007BFF;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      transition: background-color 0.2s;
+      font-weight: bold;
+    }
+
+    .section-card a:hover {
+      background-color: #0056b3;
+    }
+
+    .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .back-btn a {
+      text-decoration: none;
+      color: #007BFF;
+      font-weight: bold;
+    }
+
+    .back-btn a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="mypage-container">
+    <h1>마이페이지</h1>
+
+    <div class="user-info">
+      <p><strong>아이디:</strong> <%= user && user.id ? user.id : '알 수 없음' %></p>
+    </div>
+
+    <div class="sections">
+      <!-- 관심목록 -->
+      <div class="section-card">
+        <h2>♡ 관심목록</h2>
+        <p>관심 있는 게임들을 한눈에 볼 수 있습니다.</p>
+        <a href="/users/wishlist">관심목록 보기</a>
+      </div>
+
+      <!-- 보유목록 -->
+      <div class="section-card">
+        <h2>🎮 보유목록</h2>
+        <p>구매한 게임을 확인하고 즐겨보세요.</p>
+        <a href="/users/purchased">보유목록 보기</a>
+      </div>
+
+      <!-- 내가 쓴 리뷰 -->
+      <div class="section-card">
+        <h2>✏️ 리뷰 관리</h2>
+        <p>내가 작성한 리뷰를 모아볼 수 있습니다.</p>
+        <a href="/users/reviews">내가 쓴 리뷰</a>
+      </div>
+    </div>
+
+    <div class="back-btn">
+      <a href="/users/game_list">← 메인으로 돌아가기</a>
+    </div>
+  </div>
+</body>
+</html>
